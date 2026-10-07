@@ -1,0 +1,62 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import Photo from '../components/Photo.astro';
+import JoinCTA from '../components/JoinCTA.astro';
+import { PARTNERS } from '../site.config';
+---
+<Base title="プロジェクトについて" description="なぜ桑原川から始めるのか。羽島の自然と産業がともに歩む未来を考える、羽島サーキュラーエコノミープロジェクトの考え方と進め方。">
+  <PageHead eyebrow="ABOUT" title="プロジェクトについて" lead="羽島の自然と産業が、ともに歩む未来を考える。" crumbs={[{ label: 'プロジェクトについて' }]} />
+
+  <section class="section">
+    <div class="container about-grid">
+      <div class="reveal">
+        <span class="eyebrow">WHY KUWABARA RIVER</span>
+        <h2 class="section-title">なぜ、<br />桑原川から始めるのか。</h2>
+      </div>
+      <div class="reveal">
+        <p class="lead">地域の産業と暮らしは、豊かな水と自然に支えられています。羽島で140年近く糸をつむいできた長谷虎紡績の工場も、その例外ではありません。</p>
+        <p>工場の排水は、ときに「環境への負荷」として心配の目を向けられます。けれど、その水が川で実際にどんな役割を果たしているのかは、これまで十分に調べられてきませんでした。</p>
+        <p>私たちは桑原川を最初の活動フィールドに、川の状態や生きものを科学的に調べ、その結果を地域の皆さんと共有します。漠然とした「心配」を、事実にもとづく「信頼」へ。そして、自然と地域のものづくりが互いの価値を高め合う関係を目指します。</p>
+        <p class="mb-0">モノと資源が地域の中でめぐる「サーキュラーエコノミー」を、羽島の川と工場から考える。それがこのプロジェクトの出発点です。</p>
+      </div>
+    </div>
+    <div class="container" style="margin-top:clamp(48px,6vw,80px)">
+      <Photo label="地図準備中｜羽島・桑原川の位置" alt="羽島市と桑原川の位置を示す地図" ratio="21/9" />
+    </div>
+  </section>
+
+  <section class="section section--ink">
+    <div class="container">
+      <div class="section-head"><div><span class="eyebrow">OUR APPROACH</span><h2 class="section-title">調べることから、次の取り組みへ</h2></div></div>
+      <div class="steps">
+        <div class="step reveal"><span class="num">01</span><h3>川と地域を知る</h3><p>生態系・水質の調査と地域の声から、みんなで共有できる「事実」をつくります。</p></div>
+        <div class="step reveal"><span class="num">02</span><h3>知見を共有して学ぶ</h3><p>調査で分かったことを公開し、教育イベントを通じて地域で対話します。</p></div>
+        <div class="step reveal"><span class="num">03</span><h3>協力して実践する</h3><p>得られた知見をもとに、川の保全や、自然と調和したものづくりを考えます。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head"><div><span class="eyebrow">THREE PERSPECTIVES</span><h2 class="section-title">3つの視点をつなぐ</h2></div></div>
+      <div class="triad reveal">
+        {PARTNERS.map((p) => <div><span class="t-field">{p.field}</span><b>{p.short}</b><p>{p.role}</p></div>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="container narrow">
+      <span class="eyebrow">HISTORY</span>
+      <h2 class="section-title" style="margin-bottom:40px">これまでの歩み</h2>
+      <ol class="timeline">
+        <li class="is-done reveal"><time datetime="2026-06">2026年6月</time><p>長谷虎紡績・イノカ・aiESGの3社が連携協定を締結</p></li>
+        <li class="reveal"><span class="when">現在</span><p>流域の生物調査、意識調査、教育・地域連携の取り組みを準備・推進中</p></li>
+        <li class="reveal"><span class="when">これから</span><p>調査結果を地域に共有し、一緒に取り組む仲間を広げていきます</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <JoinCTA />
+</Base>

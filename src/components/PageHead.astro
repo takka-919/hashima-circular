@@ -1,0 +1,21 @@
+---
+import { url } from '../lib/utils';
+import ThreadLines from './ThreadLines.astro';
+interface Props { title: string; eyebrow?: string; lead?: string; crumbs?: { href?: string; label: string }[] }
+const { title, eyebrow, lead, crumbs = [] } = Astro.props;
+---
+<header class="page-head">
+  <ThreadLines class="thread-deco" lines={4} />
+  <div class="container">
+    <nav aria-label="パンくずリスト">
+      <ol class="breadcrumb">
+        <li><a href={url()}>トップ</a></li>
+        {crumbs.map((c) => <li>{c.href ? <a href={url(c.href)}>{c.label}</a> : <span aria-current="page">{c.label}</span>}</li>)}
+      </ol>
+    </nav>
+    {eyebrow && <span class="eyebrow">{eyebrow}</span>}
+    <h1 class="page-title">{title}</h1>
+    {lead && <p class="lead">{lead}</p>}
+    <slot />
+  </div>
+</header>

@@ -1,0 +1,36 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Photo from '../../components/Photo.astro';
+import Arrow from '../../components/Arrow.astro';
+import JoinCTA from '../../components/JoinCTA.astro';
+import { url, formatDate, isPublished } from '../../lib/utils';
+export async function getStaticPaths() {
+  const news = await getCollection('news', isPublished);
+  return news.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const d = entry.data;
+---
+<Base title={d.title} description={d.summary}>
+  <article class="article">
+    <div class="container narrow">
+      <nav aria-label="パンくずリスト"><ol class="breadcrumb"><li><a href={url()}>トップ</a></li><li><a href={url('news/')}>活動報告</a></li><li><span aria-current="page">記事</span></li></ol></nav>
+      <header class="article-head">
+        <div class="card-meta"><span class="tag tag--river">{d.category}</span><time datetime={d.date.toISOString()}>{formatDate(d.date)}</time></div>
+        <h1>{d.title}</h1>
+        <p class="lead mb-0">{d.summary}</p>
+      </header>
+      {d.cover && <Photo src={d.cover} alt={d.coverAlt ?? d.title} eager />}
+      <div class="prose"><Content /></div>
+      <hr style="border:0;border-top:1px solid var(--line);margin:56px 0 32px" />
+      <div style="display:flex;gap:24px;flex-wrap:wrap">
+        <a class="link-more" href={url('news/')}>活動報告の一覧へ <Arrow /></a>
+        <a class="link-more" href={url('species/')}>桑原川の生きものを見る <Arrow /></a>
+        <a class="link-more" href={url('events/')}>参加できるイベントを見る <Arrow /></a>
+      </div>
+    </div>
+  </article>
+  <JoinCTA />
+</Base>

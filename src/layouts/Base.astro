@@ -1,0 +1,115 @@
+---
+import '../styles/global.css';
+import { SITE, NAV } from '../site.config';
+import { url } from '../lib/utils';
+import LogoMark from '../components/LogoMark.astro';
+
+interface Props { title?: string; description?: string; ogImage?: string }
+const { title, description = SITE.description, ogImage = 'og.png' } = Astro.props;
+const fullTitle = title ? `${title}｜${SITE.name}` : `${SITE.name}｜川を知る。地域で学ぶ。未来を一緒につくる。`;
+const path = Astro.url.pathname;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const isCurrent = (href: string) => path.startsWith(`${base}/${href}`);
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogUrl = new URL(url(ogImage), Astro.site);
+---
+<!doctype html>
+<html lang="ja" class="no-js">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href={url('favicon.svg')} type="image/svg+xml" />
+    <meta name="theme-color" content="#f5f3ec" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogUrl} />
+    <meta property="og:locale" content="ja_JP" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&family=Noto+Sans+JP:wght@400;500&family=Noto+Serif+JP:wght@500;600&display=swap" rel="stylesheet" />
+    <script is:inline>document.documentElement.classList.remove('no-js')</script>
+  </head>
+  <body>
+    <a class="skip" href="#main">本文へ移動</a>
+    <header class="site-header" id="site-header">
+      <div class="container header-inner">
+        <a class="logo" href={url()} aria-label={`${SITE.name} トップへ`}>
+          <LogoMark />
+          <span class="logo-text"><b>羽島サーキュラーエコノミー<br class="sp-only" />プロジェクト</b><span>HASHIMA CIRCULAR ECONOMY</span></span>
+        </a>
+        <button class="menu-btn" id="menu-btn" aria-label="メニュー" aria-expanded="false" aria-controls="gnav"><span></span><span></span><span></span></button>
+        <nav class="gnav" id="gnav" aria-label="メインメニュー">
+          {NAV.map((n) => <a href={url(n.href)} aria-current={isCurrent(n.href) ? 'page' : undefined}>{n.label}</a>)}
+          <a class="btn" href={url('join/')} aria-current={isCurrent('join/') ? 'page' : undefined}>仲間になる</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div>
+            <a class="logo" href={url()}>
+              <LogoMark />
+              <span class="logo-text"><b>羽島サーキュラーエコノミープロジェクト</b><span>HASHIMA CIRCULAR ECONOMY</span></span>
+            </a>
+            <p>長谷虎紡績株式会社・株式会社イノカ・株式会社aiESGの3社連携により運営しています。</p>
+          </div>
+          <div>
+            <span class="footer-h">PROJECT</span>
+            <ul class="footer-nav">
+              {NAV.map((n) => <li><a href={url(n.href)}>{n.label}</a></li>)}
+              <li><a href={url('join/')}>仲間になる</a></li>
+            </ul>
+          </div>
+          <div>
+            <span class="footer-h">CONTACT</span>
+            <ul class="footer-nav">
+              <li><a href={url('contact/')}>お問い合わせ・連携相談</a></li>
+              <li><a href={url('privacy/')}>個人情報の取り扱い</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="copyright">
+          <span>岐阜県羽島市</span>
+          <small>&copy; {new Date().getFullYear()} {SITE.name}</small>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      const btn = document.getElementById('menu-btn');
+      const nav = document.getElementById('gnav');
+      btn?.addEventListener('click', () => {
+        const open = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', String(!open));
+        nav?.classList.toggle('is-open', !open);
+        document.body.style.overflow = open ? '' : 'hidden';
+      });
+      const header = document.getElementById('site-header');
+      const onScroll = () => header?.classList.toggle('is-scrolled', window.scrollY > 8);
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } });
+      }, { rootMargin: '0px 0px -8% 0px' });
+      document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  .sp-only { display: none; }
+  @media (max-width: 420px) { .sp-only { display: inline; } .logo-text b { font-size: 13px; } }
+</style>

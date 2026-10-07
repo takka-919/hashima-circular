@@ -1,0 +1,37 @@
+---
+// 写真コンポーネント。src があれば画像、無ければ「写真準備中」のプレースホルダーを表示。
+// src は public/ 以下のパス（例: 'images/news/survey.jpg'）
+import { url } from '../lib/utils';
+interface Props { src?: string; alt?: string; label?: string; ratio?: string; class?: string; tone?: 'river' | 'paper' | 'moss'; eager?: boolean }
+const { src, alt = '', label = '写真準備中', ratio, class: cls = '', tone = 'river', eager = false } = Astro.props;
+const style = ratio ? `aspect-ratio:${ratio}` : undefined;
+const tones = {
+  river: ['#cfdedd', '#9fbcbf', '#5f8b93', '#1f4f5c'],
+  paper: ['#e7e3d6', '#cfc9b6', '#a9a28a', '#6f6a58'],
+  moss: ['#dde2cf', '#b6c09a', '#7f8f5a', '#4b5a2e'],
+};
+const [c1, c2, c3, c4] = tones[tone];
+const id = `g${Math.random().toString(36).slice(2, 8)}`;
+---
+{src ? (
+  <div class={`photo ${cls}`} style={style}>
+    <img src={src.startsWith('http') ? src : url(src)} alt={alt} loading={eager ? 'eager' : 'lazy'} decoding="async" />
+  </div>
+) : (
+  <figure class={`photo photo--ph ${cls}`} style={style} role="img" aria-label={`${alt || label}（写真準備中）`}>
+    <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <defs>
+        <linearGradient id={id} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color={c1} /><stop offset=".55" stop-color={c2} /><stop offset="1" stop-color={c3} />
+        </linearGradient>
+      </defs>
+      <rect width="400" height="300" fill={`url(#${id})`} />
+      <path d="M0 170 C 80 150, 140 200, 220 180 S 340 150, 400 170 V300 H0Z" fill={c3} opacity=".55" />
+      <path d="M0 210 C 90 190, 160 240, 250 215 S 360 195, 400 210 V300 H0Z" fill={c4} opacity=".55" />
+      {[0, 1, 2, 3, 4].map((i) => (
+        <path d={`M-10 ${190 + i * 18} C 80 ${178 + i * 18}, 150 ${206 + i * 18}, 230 ${192 + i * 18} S 360 ${180 + i * 18}, 410 ${194 + i * 18}`} stroke="#fff" stroke-opacity=".35" stroke-width=".8" fill="none" />
+      ))}
+    </svg>
+    <figcaption>{label}</figcaption>
+  </figure>
+)}

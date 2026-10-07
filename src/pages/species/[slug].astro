@@ -1,0 +1,54 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Photo from '../../components/Photo.astro';
+import Arrow from '../../components/Arrow.astro';
+import OriginTag from '../../components/OriginTag.astro';
+import JoinCTA from '../../components/JoinCTA.astro';
+import { url, isPublished } from '../../lib/utils';
+export async function getStaticPaths() {
+  const list = await getCollection('species', isPublished);
+  return list.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const d = entry.data;
+---
+<Base title={`${d.name}｜生きもの図鑑`} description={d.summary}>
+  <article class="article">
+    <div class="container narrow">
+      <nav aria-label="パンくずリスト"><ol class="breadcrumb"><li><a href={url()}>トップ</a></li><li><a href={url('species/')}>生きもの図鑑</a></li><li><span aria-current="page">{d.name}</span></li></ol></nav>
+      <Photo src={d.photo} alt={d.name} label="写真準備中" ratio="4/3" tone="paper" eager />
+      {(d.photoCredit || d.photoType) && <p class="small" style="margin:-36px 0 40px">{[d.photoType, d.photoCredit].filter(Boolean).join('｜')}</p>}
+      <header class="article-head">
+        <div class="card-meta"><span class="tag">{d.group}</span><OriginTag origin={d.origin} />{d.endemic === '日本固有' && <span class="tag tag--river">日本固有</span>}</div>
+        <h1>{d.name}</h1>
+        {d.scientificName && <p class="small" style="font-style:italic;font-family:var(--latin);font-size:17px">{d.scientificName}</p>}
+        <p class="lead mb-0">{d.summary}</p>
+      </header>
+      <dl class="dl">
+        <dt>分類群</dt><dd>{d.group}</dd>
+        <dt>由来区分</dt><dd>{d.origin}</dd>
+        <dt>固有性</dt><dd>{d.endemic}</dd>
+        {d.criteria && <><dt>判定の基準</dt><dd>{d.criteria}</dd></>}
+      </dl>
+      <div class="prose" style="margin-top:24px"><Content /></div>
+      {d.records && (
+        <>
+          <h2 style="font-size:22px;margin:56px 0 18px">調査での確認記録</h2>
+          <dl class="dl">
+            <dt>確認時期</dt><dd>{d.records.period}</dd>
+            <dt>確認した地域</dt><dd>{d.records.area}</dd>
+            <dt>確認方法</dt><dd>{d.records.method}</dd>
+            <dt>出典・確認者</dt><dd>{d.records.source}</dd>
+          </dl>
+        </>
+      )}
+      <div style="margin-top:48px;display:flex;gap:24px;flex-wrap:wrap">
+        <a class="link-more" href={url('species/')}>図鑑の一覧に戻る <Arrow /></a>
+        <a class="link-more" href={url('news/')}>関連する調査報告を見る <Arrow /></a>
+      </div>
+    </div>
+  </article>
+  <JoinCTA />
+</Base>

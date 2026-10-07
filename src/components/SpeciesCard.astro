@@ -1,0 +1,16 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { url } from '../lib/utils';
+import Photo from './Photo.astro';
+import OriginTag from './OriginTag.astro';
+interface Props { entry: CollectionEntry<'species'> }
+const { entry } = Astro.props;
+const d = entry.data;
+---
+<a class="card reveal" href={url(`species/${entry.id}/`)}
+  data-name={`${d.name} ${d.scientificName ?? ''}`} data-group={d.group} data-origin={d.origin} data-endemic={d.endemic}>
+  <Photo src={d.photo} alt={d.name} label="写真準備中" ratio="4/3" tone="paper" />
+  <div class="card-meta"><span class="tag">{d.group}</span><OriginTag origin={d.origin} /></div>
+  <h3>{d.name}</h3>
+  <p>{d.summary}</p>
+</a>

@@ -1,0 +1,20 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import PageHead from '../../components/PageHead.astro';
+import EventRow from '../../components/EventRow.astro';
+import JoinCTA from '../../components/JoinCTA.astro';
+import { isPublished } from '../../lib/utils';
+const all = await getCollection('events', isPublished);
+const order = { '募集中': 0, '準備中': 1, '受付終了': 2, '開催済み': 3 } as const;
+const events = all.sort((a, b) => order[a.data.status] - order[b.data.status] || (+(b.data.date ?? 0)) - (+(a.data.date ?? 0)));
+---
+<Base title="イベント" description="桑原川の生きものを学ぶ環境学習イベントなど、地域の自然を知り、一緒に学ぶ機会をご紹介します。">
+  <PageHead eyebrow="EVENTS" title="イベント" lead="地域の自然を知り、一緒に学ぶ機会をご紹介します。" crumbs={[{ label: 'イベント' }]} />
+  <section class="section">
+    <div class="container">
+      {events.length ? events.map((e) => <EventRow entry={e} />) : <div class="empty"><p>現在予定しているイベントはありません。</p></div>}
+    </div>
+  </section>
+  <JoinCTA />
+</Base>

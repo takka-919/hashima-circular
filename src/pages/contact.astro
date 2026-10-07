@@ -1,0 +1,62 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import { SITE } from '../site.config';
+import { url } from '../lib/utils';
+const types = [
+  { v: 'company', l: '企業連携' }, { v: 'school', l: '学校・教育' }, { v: 'research', l: '調査研究' },
+  { v: 'local', l: '地域活動' }, { v: 'press', l: '取材' }, { v: 'event', l: 'イベントについて' }, { v: 'other', l: 'その他' },
+];
+const ready = Boolean(SITE.formEndpoint);
+---
+<Base title="お問い合わせ・連携相談" description="活動へのご質問、協力・連携のご相談、取材のお申し込みはこちらから。">
+  <PageHead eyebrow="CONTACT" title="お問い合わせ・連携相談" lead="協力したいことや、活動についてのご質問をお聞かせください。" crumbs={[{ label: 'お問い合わせ' }]} />
+  <section class="section">
+    <div class="container narrow">
+      {!ready && <p class="notice" style="margin-bottom:40px">お問い合わせフォームは現在準備中です。公開まで今しばらくお待ちください。</p>}
+      <form class="form" id="contact-form" action={SITE.formEndpoint || undefined} method="POST" data-ready={ready ? '1' : '0'}>
+        <div class="field">
+          <label for="type">相談の種類<span class="req">必須</span></label>
+          <select id="type" name="種類" required>
+            <option value="">選択してください</option>
+            {types.map((t) => <option value={t.l} data-key={t.v}>{t.l}</option>)}
+          </select>
+        </div>
+        <div class="field"><label for="name">お名前<span class="req">必須</span></label><input id="name" name="お名前" type="text" autocomplete="name" required /></div>
+        <div class="field"><label for="email">メールアドレス<span class="req">必須</span></label><input id="email" name="email" type="email" autocomplete="email" required /></div>
+        <div class="field"><label for="org">会社・学校・団体名</label><input id="org" name="所属" type="text" autocomplete="organization" /></div>
+        <div class="field"><label for="msg">相談内容<span class="req">必須</span></label><textarea id="msg" name="相談内容" required></textarea></div>
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="display:none" aria-hidden="true" />
+        <label class="check"><input type="checkbox" required /> <span><a href={url('privacy/')} target="_blank">個人情報の取り扱い</a>に同意します。</span></label>
+        <div><button class="btn" type="submit" disabled={!ready}>{ready ? '送信する' : '準備中'}</button></div>
+        <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+</Base>
+<script>
+  // ?type=school などで相談の種類を自動選択
+  const params = new URLSearchParams(location.search);
+  const key = params.get('type');
+  const sel = document.getElementById('type') as HTMLSelectElement | null;
+  if (key && sel) { const opt = sel.querySelector<HTMLOptionElement>(`option[data-key="${CSS.escape(key)}"]`); if (opt) sel.value = opt.value; }
+
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
+  const status = document.getElementById('form-status');
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (form.dataset.ready !== '1' || !status) return;
+    const btn = form.querySelector('button[type=submit]') as HTMLButtonElement;
+    btn.disabled = true; status.className = 'form-status'; status.textContent = '送信しています…';
+    try {
+      const res = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } });
+      if (!res.ok) throw new Error();
+      form.reset();
+      status.className = 'form-status is-ok';
+      status.textContent = 'お問い合わせを受け付けました。担当者より折り返しご連絡します。';
+    } catch {
+      status.className = 'form-status is-error';
+      status.textContent = '送信できませんでした。時間をおいて再度お試しください。';
+    } finally { btn.disabled = false; }
+  });
+</script>

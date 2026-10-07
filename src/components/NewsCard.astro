@@ -1,0 +1,14 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { url, formatDate } from '../lib/utils';
+import Photo from './Photo.astro';
+interface Props { entry: CollectionEntry<'news'> }
+const { entry } = Astro.props;
+const d = entry.data;
+---
+<a class="card reveal" href={url(`news/${entry.id}/`)}>
+  <Photo src={d.cover} alt={d.coverAlt ?? d.title} label={`写真準備中｜${d.category}`} />
+  <div class="card-meta"><span class="tag tag--river">{d.category}</span><time datetime={d.date.toISOString()}>{formatDate(d.date)}</time></div>
+  <h3>{d.title}</h3>
+  <p>{d.summary}</p>
+</a>

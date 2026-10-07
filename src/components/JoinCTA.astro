@@ -1,0 +1,14 @@
+---
+import { url } from '../lib/utils';
+import Arrow from './Arrow.astro';
+import ThreadLines from './ThreadLines.astro';
+---
+<section class="join-cta" aria-labelledby="join-cta-title">
+  <ThreadLines class="thread-deco" lines={6} />
+  <div class="container">
+    <span class="eyebrow">JOIN US</span>
+    <h2 id="join-cta-title">羽島の未来を、<br />一緒に考えませんか。</h2>
+    <p>イベントに参加する。学びをつくる。調査やものづくりに協力する。<br />それぞれの関わり方で、仲間を募集しています。</p>
+    <a class="btn" href={url('join/')}>参加・協力の方法を見る <Arrow /></a>
+  </div>
+</section>

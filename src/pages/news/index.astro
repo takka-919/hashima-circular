@@ -1,0 +1,37 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import PageHead from '../../components/PageHead.astro';
+import NewsCard from '../../components/NewsCard.astro';
+import JoinCTA from '../../components/JoinCTA.astro';
+import { isPublished } from '../../lib/utils';
+const cats = ['すべて', '調査', '教育イベント', '地域連携', 'お知らせ'];
+const news = (await getCollection('news', isPublished)).sort((a, b) => +b.data.date - +a.data.date);
+---
+<Base title="活動報告" description="桑原川での調査、教育イベント、地域連携など、羽島サーキュラーエコノミープロジェクトの活動をお伝えします。">
+  <PageHead eyebrow="NEWS & REPORTS" title="活動報告" lead="調査・教育イベント・地域連携の取り組みをお伝えします。" crumbs={[{ label: '活動報告' }]} />
+  <section class="section">
+    <div class="container">
+      <div class="filter-row" role="group" aria-label="カテゴリで絞り込む" style="margin-bottom:40px" id="news-filter">
+        {cats.map((c, i) => <button class="chip" type="button" data-cat={c} aria-pressed={i === 0 ? 'true' : 'false'}>{c}</button>)}
+      </div>
+      <div class="cards" id="news-list">
+        {news.map((n) => <div data-cat={n.data.category}><NewsCard entry={n} /></div>)}
+      </div>
+      <p class="empty" id="news-empty" hidden>このカテゴリの記事はまだありません。</p>
+    </div>
+  </section>
+  <JoinCTA />
+</Base>
+<script>
+  const chips = document.querySelectorAll<HTMLButtonElement>('#news-filter .chip');
+  const items = document.querySelectorAll<HTMLElement>('#news-list > [data-cat]');
+  const empty = document.getElementById('news-empty');
+  chips.forEach((chip) => chip.addEventListener('click', () => {
+    chips.forEach((c) => c.setAttribute('aria-pressed', String(c === chip)));
+    const cat = chip.dataset.cat;
+    let n = 0;
+    items.forEach((it) => { const show = cat === 'すべて' || it.dataset.cat === cat; it.hidden = !show; if (show) n++; });
+    if (empty) empty.hidden = n > 0;
+  }));
+</script>

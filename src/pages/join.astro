@@ -1,0 +1,38 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import Arrow from '../components/Arrow.astro';
+import { url } from '../lib/utils';
+const ways = [
+  { who: '地域の皆さん・親子', title: 'イベントに参加する', text: '川の生きものを学び、地域の自然に触れる。', cta: 'イベントを見る', href: 'events/' },
+  { who: '学校・教育関係者', title: '一緒に学びをつくる', text: '環境学習の授業や教材、教育イベントについてご相談ください。', cta: '教育連携を相談する', href: 'contact/?type=school' },
+  { who: '企業・地域団体', title: '活動に協力する', text: '技術・素材・会場など、それぞれにできることを持ち寄りましょう。', cta: '協力を相談する', href: 'contact/?type=company' },
+  { who: '研究者・専門家', title: '調査・研究をつなぐ', text: '川や自然、社会の価値について、専門知識を持ち寄ってください。', cta: '研究連携を相談する', href: 'contact/?type=research' },
+  { who: '農業関係者・住民', title: '地域の声を届ける', text: '川との関わりや、地域で気づいたことを教えてください。', cta: '地域活動を相談する', href: 'contact/?type=local' },
+  { who: '行政・支援機関', title: '地域のつながりを広げる', text: '周知やネットワークづくりへのご協力をご相談ください。', cta: '連携を相談する', href: 'contact/?type=other' },
+];
+---
+<Base title="仲間になる" description="イベントへの参加、教育・研究・企業連携など、羽島サーキュラーエコノミープロジェクトへの関わり方をご紹介します。">
+  <PageHead eyebrow="JOIN US" title="仲間になる" lead="あなたの関心や得意なことを、地域の活動につなげませんか。" crumbs={[{ label: '仲間になる' }]} />
+  <section class="section">
+    <div class="container">
+      <div class="section-head"><div><span class="eyebrow">WAYS TO JOIN</span><h2 class="section-title">こんな関わり方があります</h2><p class="lead" style="margin:16px 0 0">まずはイベントへの参加や、協力のご相談から。募集内容は受け入れ体制に合わせて更新します。</p></div></div>
+      <div class="ways">
+        {ways.map((w) => (
+          <div class="way reveal"><span class="who">{w.who}</span><h3>{w.title}</h3><p>{w.text}</p><a class="link-more" href={url(w.href)}>{w.cta} <Arrow /></a></div>
+        ))}
+      </div>
+    </div>
+  </section>
+  <section class="section section--ink">
+    <div class="container">
+      <div class="section-head"><div><span class="eyebrow">HOW IT WORKS</span><h2 class="section-title">相談から参加まで</h2></div></div>
+      <div class="steps">
+        <div class="step reveal"><span class="num">01</span><h3>関心を伝える</h3><p>相談フォームから、興味のある活動や協力したいことをお知らせください。</p></div>
+        <div class="step reveal"><span class="num">02</span><h3>一緒に話す</h3><p>担当者からご連絡し、活動内容や関わり方をご相談します。</p></div>
+        <div class="step reveal"><span class="num">03</span><h3>できることから始める</h3><p>お互いに無理のない方法で、活動への参加を始めます。</p></div>
+      </div>
+      <div style="margin-top:56px"><a class="btn" style="background:var(--paper);color:var(--ink);border-color:var(--paper)" href={url('contact/')}>参加・連携について相談する <Arrow /></a></div>
+    </div>
+  </section>
+</Base>
