@@ -3,11 +3,11 @@ import Base from '../layouts/Base.astro';
 import { url } from '../lib/utils';
 ---
 <Base title="ページが見つかりません">
-  <section class="section center">
+  <section class="section" style="padding-top:160px">
     <div class="container narrow">
-      <span class="eyebrow">404 NOT FOUND</span>
-      <h1 class="page-title">ページが見つかりません</h1>
-      <p class="lead">お探しのページは移動または削除された可能性があります。</p>
+      <span class="eyebrow">404</span>
+      <h1 class="h2">ページが見つかりません</h1>
+      <p style="margin:16px 0 32px">お探しのページは移動または削除された可能性があります。</p>
       <a class="btn" href={url()}>トップへ戻る</a>
     </div>
   </section>

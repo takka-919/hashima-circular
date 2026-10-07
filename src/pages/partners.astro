@@ -1,23 +1,20 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
-import Arrow from '../components/Arrow.astro';
 import JoinCTA from '../components/JoinCTA.astro';
 import { PARTNERS } from '../site.config';
 ---
 <Base title="運営・連携" description="長谷虎紡績・イノカ・aiESGの3社が、地域の現場・生物科学・社会科学の視点をつないでプロジェクトを進めています。">
-  <PageHead eyebrow="PARTNERS" title="運営・連携" lead="地域の現場・生物科学・社会科学。3つの視点をつないで進めています。" crumbs={[{ label: '運営・連携' }]} />
+  <PageHead en="PARTNERS" ja="参加団体" title="運営・連携" lead="産業の現場、生物科学、社会科学。3社がそれぞれの専門を持ち寄って進めています。" crumbs={[{ label: '運営・連携' }]} />
   <section class="section">
-    <div class="container">
+    <div class="container narrow">
       {PARTNERS.map((p) => (
-        <section class="partner reveal" id={p.id} aria-labelledby={`${p.id}-h`}>
-          <div class="partner-badge"><b>{p.short}</b><span>{p.field}</span></div>
-          <div>
-            <span class="company">{p.name}</span>
-            <h2 id={`${p.id}-h`}>{p.role}</h2>
-            {p.body.map((t) => <p>{t}</p>)}
-            <a class="link-more" href={p.url} target="_blank" rel="noopener">公式サイトを見る <Arrow /></a>
-          </div>
+        <section class="partner" id={p.id} aria-labelledby={`${p.id}-h`}>
+          <span class="label field">{p.field}</span>
+          <p class="company mb-0">{p.name}</p>
+          <h2 id={`${p.id}-h`}>{p.role}</h2>
+          {p.body.map((t) => <p>{t}</p>)}
+          <a class="btn" href={p.url} target="_blank" rel="noopener">公式サイト</a>
         </section>
       ))}
     </div>

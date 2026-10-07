@@ -2,8 +2,7 @@
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import Photo from '../components/Photo.astro';
-import Arrow from '../components/Arrow.astro';
-import ThreadLines from '../components/ThreadLines.astro';
+import SectionHead from '../components/SectionHead.astro';
 import NewsCard from '../components/NewsCard.astro';
 import EventRow from '../components/EventRow.astro';
 import SpeciesCard from '../components/SpeciesCard.astro';
@@ -18,97 +17,78 @@ const events = (await getCollection('events', isPublished))
   .slice(0, 2);
 const species = (await getCollection('species', isPublished)).sort((a, b) => a.data.order - b.data.order).slice(0, 3);
 ---
-<Base>
-  <!-- HERO -->
-  <section class="hero">
-    <div class="container hero-grid">
-      <div class="hero-copy">
-        <span class="eyebrow">HASHIMA CIRCULAR ECONOMY PROJECT</span>
-        <h1><span>川を知る。</span><span>地域で学ぶ。</span><span>未来を一緒につくる。</span></h1>
-        <p class="lead">羽島の自然と、ものづくりをつなぐプロジェクト。<br />桑原川の調査や学びの場を通じて、地域と産業がともに歩む未来を考えます。</p>
-        <div class="hero-actions">
-          <a class="btn" href={url('events/')}>イベントに参加する <Arrow /></a>
-          <a class="btn btn--ghost" href={url('join/')}>仲間になる</a>
-        </div>
-      </div>
-      <div class="hero-visual">
-        <Photo label="写真準備中｜桑原川と羽島の風景" alt="桑原川と羽島の風景" eager />
-        <span class="hero-caption">岐阜県羽島市・桑原川</span>
-      </div>
-    </div>
-    <ThreadLines class="hero-thread" animate lines={5} />
-  </section>
-
-  <!-- ABOUT -->
-  <section class="section" aria-labelledby="about-title">
-    <div class="container about-grid">
-      <div class="reveal">
-        <span class="eyebrow">ABOUT THE PROJECT</span>
-        <h2 class="section-title" id="about-title">一本の糸のように、<br />川と暮らしと<br />ものづくりをつなぐ。</h2>
-        <p class="lead" style="margin-top:24px">羽島は、清流の国・岐阜で古くから繊維のまちとして栄えてきました。その産業と暮らしを支えてきたのは、豊かな水と自然です。<br />川の生きもの、地域の暮らし、ものづくり。そのつながりを調べ、学び、地域の皆さんと次の取り組みを考えていきます。</p>
-        <a class="link-more" href={url('about/')}>プロジェクトについて詳しく <Arrow /></a>
-      </div>
-      <div class="pillars reveal">
-        <div class="pillar"><span class="pillar-num">01</span><div><span class="pillar-en">RESEARCH</span><h3>川の今を調べる</h3><p>生態系や水質の調査を通じて、桑原川の姿を科学的に捉えます。</p></div></div>
-        <div class="pillar"><span class="pillar-num">02</span><div><span class="pillar-en">EDUCATION</span><h3>地域で学ぶ</h3><p>子どもたちや住民の皆さんと、川の自然に触れる学びの機会をつくります。</p></div></div>
-        <div class="pillar"><span class="pillar-num">03</span><div><span class="pillar-en">COLLABORATION</span><h3>一緒に取り組む</h3><p>企業・学校・研究者・地域をつなぎ、次の活動を考えます。</p></div></div>
+<Base overHero>
+  <section class="hero" aria-label="メインビジュアル">
+    <Photo shape="free" label="写真準備中｜桑原川（羽島市）" alt="羽島市を流れる桑原川" eager />
+    <div class="hero-body">
+      <h1 class="hero-copy"><span>羽島の川を、</span><br /><span>工場と地域で、</span><br /><span>いっしょに調べる。</span></h1>
+      <p class="hero-sub">羽島サーキュラーエコノミープロジェクト ─ 長谷虎紡績・イノカ・aiESG</p>
+      <div class="btn-row">
+        <a class="btn btn--light" href={url('events/')}>イベントを見る</a>
+        <a class="btn btn--light" href={url('join/')}>仲間になる</a>
       </div>
     </div>
   </section>
 
-  <!-- NEWS -->
-  <section class="section section--tint" aria-labelledby="news-title">
+  <section class="section" aria-labelledby="news-title">
     <div class="container">
-      <div class="section-head">
-        <div><span class="eyebrow">NEWS &amp; REPORTS</span><h2 class="section-title" id="news-title">活動報告</h2></div>
-        <a class="link-more" href={url('news/')}>すべて見る <Arrow /></a>
+      <div class="head-row">
+        <SectionHead en="News" title="活動報告" id="news-title" />
+        <a class="btn" href={url('news/')}>すべて見る</a>
       </div>
       <div class="cards">{news.map((n) => <NewsCard entry={n} />)}</div>
     </div>
   </section>
 
-  <!-- EVENTS -->
-  <section class="section" aria-labelledby="events-title">
-    <div class="container">
-      <div class="section-head">
-        <div><span class="eyebrow">EVENTS</span><h2 class="section-title" id="events-title">参加できるイベント</h2></div>
-        <a class="link-more" href={url('events/')}>すべて見る <Arrow /></a>
+  <section class="section" aria-labelledby="about-title">
+    <div class="container split">
+      <div>
+        <SectionHead en="About" title="工場の排水と、<br />川の生きもの。" id="about-title" />
+        <p>羽島で140年近く糸をつくってきた長谷虎紡績の工場は、桑原川のそばにあります。工場から出る水は、川の生きものにどう関わっているのか。</p>
+        <p>まずは川の今を調べて、分かったことを地域の皆さんと共有するところから始めます。</p>
+        <a class="btn" href={url('about/')}>プロジェクトについて</a>
       </div>
-      {events.length ? events.map((e) => <EventRow entry={e} />) : <div class="empty"><p>現在募集中のイベントはありません。</p></div>}
+      <Photo shape="capsule" label="写真準備中｜桑原川での調査" alt="桑原川で生きものを調べる様子" />
     </div>
   </section>
 
-  <!-- SPECIES -->
-  <section class="section section--tint" aria-labelledby="species-title">
+  <div class="stripe stripe--right" aria-hidden="true"></div>
+
+  <section class="section" aria-labelledby="events-title">
     <div class="container">
-      <div class="section-head">
-        <div><span class="eyebrow">LIFE IN THE RIVER</span><h2 class="section-title" id="species-title">桑原川の生きもの</h2></div>
-        <a class="link-more" href={url('species/')}>図鑑を見る <Arrow /></a>
+      <div class="head-row">
+        <SectionHead en="Events" title="参加できるイベント" id="events-title" />
+        <a class="btn" href={url('events/')}>すべて見る</a>
+      </div>
+      {events.length ? events.map((e) => <EventRow entry={e} />) : <div class="empty"><p>いま募集しているイベントはありません。</p></div>}
+    </div>
+  </section>
+
+  <section class="section section--aqua" aria-labelledby="species-title">
+    <div class="container">
+      <div class="head-row">
+        <SectionHead en="Life in the river" title="桑原川の生きもの" id="species-title" />
+        <a class="btn" href={url('species/')}>図鑑を見る</a>
       </div>
       {species.length ? (
         <div class="cards">{species.map((s) => <SpeciesCard entry={s} />)}</div>
       ) : (
-        <div class="empty reveal">
-          <h3>図鑑は、ただいま調査中です。</h3>
-          <p>桑原川で確認された生きものを、専門家による確認を経てから順次掲載します。<br />川にどんな生きものが暮らしているのか、楽しみにお待ちください。</p>
+        <div class="empty" style="background:#fff">
+          <h3>図鑑は調査中です</h3>
+          <p class="mb-0">桑原川で見つかった生きものを、専門家が確認したものから順に載せていきます。</p>
         </div>
       )}
     </div>
   </section>
 
-  <!-- PARTNERS -->
   <section class="section" aria-labelledby="partners-title">
     <div class="container">
-      <div class="section-head">
-        <div>
-          <span class="eyebrow">PARTNERS</span>
-          <h2 class="section-title" id="partners-title">3つの視点で、ともに進める</h2>
-          <p class="lead" style="margin:16px 0 0">地域の現場・生物科学・社会科学。それぞれの知見を持ち寄って運営しています。</p>
-        </div>
-        <a class="link-more" href={url('partners/')}>各社の役割を見る <Arrow /></a>
+      <div class="head-row">
+        <SectionHead en="Partners" title="運営する3社" id="partners-title" />
+        <a class="btn" href={url('partners/')}>各社の役割</a>
       </div>
-      <div class="partner-logos reveal">
-        {PARTNERS.map((p) => <a href={url(`partners/#${p.id}`)}><span class="pl-name">{p.short}</span><span class="pl-field">{p.field}</span></a>)}
+      <div class="partner-row">
+        {PARTNERS.map((p) => <a href={url(`partners/#${p.id}`)}><span>{p.field}</span><b>{p.name}</b></a>)}
       </div>
     </div>
   </section>

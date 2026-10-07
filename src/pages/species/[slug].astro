@@ -2,7 +2,6 @@
 import { getCollection, render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import Photo from '../../components/Photo.astro';
-import Arrow from '../../components/Arrow.astro';
 import OriginTag from '../../components/OriginTag.astro';
 import JoinCTA from '../../components/JoinCTA.astro';
 import { url, isPublished } from '../../lib/utils';
@@ -18,13 +17,13 @@ const d = entry.data;
   <article class="article">
     <div class="container narrow">
       <nav aria-label="パンくずリスト"><ol class="breadcrumb"><li><a href={url()}>トップ</a></li><li><a href={url('species/')}>生きもの図鑑</a></li><li><span aria-current="page">{d.name}</span></li></ol></nav>
-      <Photo src={d.photo} alt={d.name} label="写真準備中" ratio="4/3" tone="paper" eager />
-      {(d.photoCredit || d.photoType) && <p class="small" style="margin:-36px 0 40px">{[d.photoType, d.photoCredit].filter(Boolean).join('｜')}</p>}
+      <Photo src={d.photo} alt={d.name} label="写真準備中" shape="square" eager />
+      {(d.photoCredit || d.photoType) && <p class="small" style="margin:-36px 0 32px">{[d.photoType, d.photoCredit].filter(Boolean).join('｜')}</p>}
       <header class="article-head">
-        <div class="card-meta"><span class="tag">{d.group}</span><OriginTag origin={d.origin} />{d.endemic === '日本固有' && <span class="tag tag--river">日本固有</span>}</div>
+        <div class="card-meta" style="justify-content:flex-start"><span class="tags"><span class="tag tag--line">{d.group}</span><OriginTag origin={d.origin} />{d.endemic === '日本固有' && <span class="tag">日本固有</span>}</span></div>
         <h1>{d.name}</h1>
-        {d.scientificName && <p class="small" style="font-style:italic;font-family:var(--latin);font-size:17px">{d.scientificName}</p>}
-        <p class="lead mb-0">{d.summary}</p>
+        {d.scientificName && <p style="font-style:italic;font-family:var(--display);color:var(--ink-2);margin-bottom:8px">{d.scientificName}</p>}
+        <p class="muted mb-0">{d.summary}</p>
       </header>
       <dl class="dl">
         <dt>分類群</dt><dd>{d.group}</dd>
@@ -35,7 +34,7 @@ const d = entry.data;
       <div class="prose" style="margin-top:24px"><Content /></div>
       {d.records && (
         <>
-          <h2 style="font-size:22px;margin:56px 0 18px">調査での確認記録</h2>
+          <h2 class="sub-h">調査での確認記録</h2>
           <dl class="dl">
             <dt>確認時期</dt><dd>{d.records.period}</dd>
             <dt>確認した地域</dt><dd>{d.records.area}</dd>
@@ -44,9 +43,9 @@ const d = entry.data;
           </dl>
         </>
       )}
-      <div style="margin-top:48px;display:flex;gap:24px;flex-wrap:wrap">
-        <a class="link-more" href={url('species/')}>図鑑の一覧に戻る <Arrow /></a>
-        <a class="link-more" href={url('news/')}>関連する調査報告を見る <Arrow /></a>
+      <div class="article-foot">
+        <a class="btn" href={url('species/')}>図鑑の一覧へ</a>
+        <a class="btn" href={url('news/')}>調査の報告を見る</a>
       </div>
     </div>
   </article>

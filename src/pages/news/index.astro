@@ -9,10 +9,10 @@ const cats = ['すべて', '調査', '教育イベント', '地域連携', 'お�
 const news = (await getCollection('news', isPublished)).sort((a, b) => +b.data.date - +a.data.date);
 ---
 <Base title="活動報告" description="桑原川での調査、教育イベント、地域連携など、羽島サーキュラーエコノミープロジェクトの活動をお伝えします。">
-  <PageHead eyebrow="NEWS & REPORTS" title="活動報告" lead="調査・教育イベント・地域連携の取り組みをお伝えします。" crumbs={[{ label: '活動報告' }]} />
+  <PageHead en="NEWS" ja="お知らせ" title="活動報告" lead="調査・教育イベント・地域連携の取り組みをお伝えします。" crumbs={[{ label: '活動報告' }]} />
   <section class="section">
     <div class="container">
-      <div class="filter-row" role="group" aria-label="カテゴリで絞り込む" style="margin-bottom:40px" id="news-filter">
+      <div class="filter-row" role="group" aria-label="カテゴリで絞り込む" style="margin-bottom:48px" id="news-filter">
         {cats.map((c, i) => <button class="chip" type="button" data-cat={c} aria-pressed={i === 0 ? 'true' : 'false'}>{c}</button>)}
       </div>
       <div class="cards" id="news-list">

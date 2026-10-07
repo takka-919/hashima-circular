@@ -11,28 +11,28 @@ const origins = ['すべて', '在来', '国外外来', '国内外来', '判定�
 const endemics = ['すべて', '日本固有', '固有ではない', '未確認'];
 ---
 <Base title="桑原川の生きもの図鑑" description="桑原川に暮らす生きものの特徴や、調査で確認した記録を紹介する図鑑です。">
-  <PageHead eyebrow="LIFE IN THE RIVER" title="桑原川の生きもの図鑑" lead="川に暮らす生きものを知る。特徴や、調査での確認記録を紹介します。" crumbs={[{ label: '生きもの図鑑' }]} />
+  <PageHead en="CREATURES" ja="生きもの図鑑" title="桑原川の生きもの図鑑" lead="川に暮らす生きものを知る。特徴や、調査での確認記録を紹介します。" crumbs={[{ label: '生きもの図鑑' }]} />
   <section class="section">
     <div class="container">
       {species.length ? (
         <>
           <div class="filters" id="filters">
-            <div class="filter-row"><label class="label" for="q">名前で探す</label><input class="search" id="q" type="search" placeholder="例：メダカ" /></div>
-            <div class="filter-row" role="group" aria-label="分類群" data-key="group"><span class="label">分類群</span>{groups.map((g, i) => <button class="chip" type="button" data-v={g} aria-pressed={i === 0 ? 'true' : 'false'}>{g}</button>)}</div>
-            <div class="filter-row" role="group" aria-label="在来・外来" data-key="origin"><span class="label">在来・外来</span>{origins.map((g, i) => <button class="chip" type="button" data-v={g} aria-pressed={i === 0 ? 'true' : 'false'}>{g}</button>)}</div>
-            <div class="filter-row" role="group" aria-label="固有性" data-key="endemic"><span class="label">固有性</span>{endemics.map((g, i) => <button class="chip" type="button" data-v={g} aria-pressed={i === 0 ? 'true' : 'false'}>{g}</button>)}</div>
+            <div class="filter-row"><label class="label-s" for="q">名前で探す</label><input class="search" id="q" type="search" placeholder="例：メダカ" /></div>
+            <div class="filter-row" role="group" aria-label="分類群" data-key="group"><span class="label-s">分類群</span>{groups.map((g, i) => <button class="chip" type="button" data-v={g} aria-pressed={i === 0 ? 'true' : 'false'}>{g}</button>)}</div>
+            <div class="filter-row" role="group" aria-label="在来・外来" data-key="origin"><span class="label-s">在来・外来</span>{origins.map((g, i) => <button class="chip" type="button" data-v={g} aria-pressed={i === 0 ? 'true' : 'false'}>{g}</button>)}</div>
+            <div class="filter-row" role="group" aria-label="固有性" data-key="endemic"><span class="label-s">固有性</span>{endemics.map((g, i) => <button class="chip" type="button" data-v={g} aria-pressed={i === 0 ? 'true' : 'false'}>{g}</button>)}</div>
             <p class="small mb-0" aria-live="polite"><span id="count">{species.length}</span>件を表示中</p>
           </div>
           <div class="cards" id="species-list">{species.map((s) => <SpeciesCard entry={s} />)}</div>
         </>
       ) : (
         <div class="empty">
-          <h3>図鑑は、ただいま調査中です。</h3>
-          <p>桑原川で確認された生きものは、専門家による同定・確認を経てから掲載します。<br />在来・外来の区分や固有性も、根拠とあわせてお伝えする予定です。</p>
+          <h3>図鑑は調査中です</h3>
+          <p>桑原川で見つかった生きものは、専門家が種類を確かめてから載せます。在来か外来かといった区分も、根拠とあわせて紹介する予定です。</p>
         </div>
       )}
       <div class="notice" style="margin-top:48px">
-        <strong>図鑑の見方</strong><br />
+        <b>図鑑の見方</b><br />
         「在来」はもともと桑原川周辺に生息している生きもの、「国外外来」は海外から持ち込まれた生きもの、「国内外来」は日本国内の別の地域から持ち込まれた生きものです。区分が確定していないものは「判定保留」としています。
       </div>
     </div>

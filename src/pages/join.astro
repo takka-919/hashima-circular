@@ -1,7 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
-import Arrow from '../components/Arrow.astro';
+import SectionHead from '../components/SectionHead.astro';
 import { url } from '../lib/utils';
 const ways = [
   { who: '地域の皆さん・親子', title: 'イベントに参加する', text: '川の生きものを学び、地域の自然に触れる。', cta: 'イベントを見る', href: 'events/' },
@@ -13,26 +13,26 @@ const ways = [
 ];
 ---
 <Base title="仲間になる" description="イベントへの参加、教育・研究・企業連携など、羽島サーキュラーエコノミープロジェクトへの関わり方をご紹介します。">
-  <PageHead eyebrow="JOIN US" title="仲間になる" lead="あなたの関心や得意なことを、地域の活動につなげませんか。" crumbs={[{ label: '仲間になる' }]} />
+  <PageHead en="JOIN US" ja="仲間になる" title="仲間になる" lead="あなたの関心や得意なことを、地域の活動につなげませんか。" crumbs={[{ label: '仲間になる' }]} />
   <section class="section">
     <div class="container">
-      <div class="section-head"><div><span class="eyebrow">WAYS TO JOIN</span><h2 class="section-title">こんな関わり方があります</h2><p class="lead" style="margin:16px 0 0">まずはイベントへの参加や、協力のご相談から。募集内容は受け入れ体制に合わせて更新します。</p></div></div>
+      <SectionHead en="Ways to join" title="こんな関わり方があります" /><p style="margin:-24px 0 40px">まずはイベントへの参加や、協力のご相談から。募集内容は受け入れ体制に合わせて更新します。</p>
       <div class="ways">
         {ways.map((w) => (
-          <div class="way reveal"><span class="who">{w.who}</span><h3>{w.title}</h3><p>{w.text}</p><a class="link-more" href={url(w.href)}>{w.cta} <Arrow /></a></div>
+          <div class="way"><span class="who">{w.who}</span><h3>{w.title}</h3><p>{w.text}</p><a class="btn" href={url(w.href)}>{w.cta}</a></div>
         ))}
       </div>
     </div>
   </section>
-  <section class="section section--ink">
+  <section class="section section--aqua">
     <div class="container">
-      <div class="section-head"><div><span class="eyebrow">HOW IT WORKS</span><h2 class="section-title">相談から参加まで</h2></div></div>
-      <div class="steps">
-        <div class="step reveal"><span class="num">01</span><h3>関心を伝える</h3><p>相談フォームから、興味のある活動や協力したいことをお知らせください。</p></div>
-        <div class="step reveal"><span class="num">02</span><h3>一緒に話す</h3><p>担当者からご連絡し、活動内容や関わり方をご相談します。</p></div>
-        <div class="step reveal"><span class="num">03</span><h3>できることから始める</h3><p>お互いに無理のない方法で、活動への参加を始めます。</p></div>
-      </div>
-      <div style="margin-top:56px"><a class="btn" style="background:var(--paper);color:var(--ink);border-color:var(--paper)" href={url('contact/')}>参加・連携について相談する <Arrow /></a></div>
+      <SectionHead en="Flow" title="相談から参加まで" />
+      <ol class="steps">
+        <li><h3>関心を伝える</h3><p>相談フォームから、興味のある活動や協力したいことをお知らせください。</p></li>
+        <li><h3>一緒に話す</h3><p>担当者からご連絡し、活動内容や関わり方をご相談します。</p></li>
+        <li><h3>できることから始める</h3><p>お互いに無理のない方法で、活動への参加を始めます。</p></li>
+      </ol>
+      <div style="margin-top:40px"><a class="btn" href={url('contact/')}>参加・連携について相談する</a></div>
     </div>
   </section>
 </Base>

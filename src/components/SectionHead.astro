@@ -1,0 +1,10 @@
+---
+// イノカ式の見出し：青い英字アイキャッチ＋和文見出し
+interface Props { en?: string; title: string; id?: string; level?: 'h1' | 'h2' }
+const { en, title, id, level = 'h2' } = Astro.props;
+const Tag = level;
+---
+<div class="head">
+  {en && <span class="eyebrow">{en}</span>}
+  <Tag class="h2" id={id} set:html={title} />
+</div>

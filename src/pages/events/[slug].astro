@@ -2,7 +2,6 @@
 import { getCollection, render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import Photo from '../../components/Photo.astro';
-import Arrow from '../../components/Arrow.astro';
 import JoinCTA from '../../components/JoinCTA.astro';
 import { url, isPublished } from '../../lib/utils';
 export async function getStaticPaths() {
@@ -19,13 +18,13 @@ const canApply = d.status === '募集中' && d.applyUrl;
     <div class="container narrow">
       <nav aria-label="パンくずリスト"><ol class="breadcrumb"><li><a href={url()}>トップ</a></li><li><a href={url('events/')}>イベント</a></li><li><span aria-current="page">詳細</span></li></ol></nav>
       <header class="article-head">
-        <div class="card-meta"><span class={`tag ${d.status === '募集中' ? 'tag--fill' : 'tag--river'}`}>{d.status}</span><span>{d.audience}</span></div>
+        <div class="card-meta" style="justify-content:flex-start;gap:14px"><span class:list={['tag', { 'tag--line': d.status !== '募集中' }]}>{d.status}</span><span class="small">{d.audience}</span></div>
         <h1>{d.title}</h1>
-        <p class="lead mb-0">{d.summary}</p>
+        <p class="muted mb-0">{d.summary}</p>
       </header>
-      <Photo src={d.cover} alt={d.coverAlt ?? d.title} label="告知画像準備中" tone="moss" eager />
+      <Photo src={d.cover} alt={d.coverAlt ?? d.title} label="告知画像準備中" eager />
       <div class="prose"><Content /></div>
-      <h2 style="font-size:22px;margin:56px 0 18px">開催概要</h2>
+      <h2 class="sub-h">開催概要</h2>
       <dl class="dl">
         <dt>日時</dt><dd>{d.dateText}</dd>
         <dt>会場</dt><dd>{d.venue}</dd>
@@ -34,11 +33,11 @@ const canApply = d.status === '募集中' && d.applyUrl;
         <dt>参加費</dt><dd>{d.fee}</dd>
         <dt>申込期限</dt><dd>{d.deadline}</dd>
       </dl>
-      <div style="margin-top:40px;display:flex;gap:16px;flex-wrap:wrap;align-items:center">
+      <div class="article-foot">
         {canApply
-          ? <a class="btn" href={d.applyUrl} target="_blank" rel="noopener">申し込む <Arrow /></a>
-          : <a class="btn btn--ghost" href={url('contact/')}>開催のお知らせを希望する <Arrow /></a>}
-        <a class="link-more" href={url('events/')}>イベント一覧へ <Arrow /></a>
+          ? <a class="btn" href={d.applyUrl} target="_blank" rel="noopener">申し込む</a>
+          : <a class="btn" href={url('contact/?type=event')}>開催のお知らせを希望する</a>}
+        <a class="btn" href={url('events/')}>イベント一覧へ</a>
       </div>
     </div>
   </article>

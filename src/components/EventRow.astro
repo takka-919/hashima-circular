@@ -2,18 +2,16 @@
 import type { CollectionEntry } from 'astro:content';
 import { url } from '../lib/utils';
 import Photo from './Photo.astro';
-import Arrow from './Arrow.astro';
 interface Props { entry: CollectionEntry<'events'> }
 const { entry } = Astro.props;
 const d = entry.data;
 ---
-<a class="event-row reveal" href={url(`events/${entry.id}/`)}>
-  <Photo src={d.cover} alt={d.coverAlt ?? d.title} label="告知画像準備中" tone="moss" />
+<a class="event-row" href={url(`events/${entry.id}/`)}>
+  <Photo src={d.cover} alt={d.coverAlt ?? d.title} label="告知画像準備中" />
   <div>
-    <div class="card-meta"><span class={`tag ${d.status === '募集中' ? 'tag--fill' : 'tag--river'}`}>{d.status}</span><span>{d.audience}</span></div>
+    <div class="card-meta" style="justify-content:flex-start"><span class:list={['tag', { 'tag--line': d.status !== '募集中' }]}>{d.status}</span><span class="small">{d.audience}</span></div>
     <h3>{d.title}</h3>
     <p>{d.summary}</p>
-    <p class="event-when">日時：{d.dateText}　／　会場：{d.venue}</p>
-    <span class="link-more">詳細を見る <Arrow /></span>
+    <p class="event-when mb-0">日時：{d.dateText}<br />会場：{d.venue}</p>
   </div>
 </a>

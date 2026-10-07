@@ -1,0 +1,9 @@
+---
+// セトナギ式の見出し：縦書きの和文ラベル＋巨大な英字（ページ冒頭だけで使う）
+interface Props { en: string; ja: string }
+const { en, ja } = Astro.props;
+---
+<div class="display-head">
+  <span class="v">{ja}</span>
+  <span class="en" aria-hidden="true">{en}</span>
+</div>

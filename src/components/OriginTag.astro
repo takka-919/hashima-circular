@@ -1,5 +1,5 @@
 ---
 const { origin } = Astro.props as { origin: string };
-const cls = { '在来': 'tag--native', '国外外来': 'tag--foreign', '国内外来': 'tag--domestic' }[origin] ?? '';
+const cls = { '在来': 'tag--native', '国外外来': 'tag--foreign', '国内外来': 'tag--domestic', '判定保留': 'tag--hold' }[origin] ?? '';
 ---
 <span class={`tag ${cls}`}>{origin}</span>
