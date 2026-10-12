@@ -8,9 +8,9 @@ venue: 確定後に掲載
 capacity: 確定後に掲載
 fee: 無料（予定）
 deadline: 確定後に掲載
-cover: images/fields-town.jpg
-coverAlt: 田んぼと町並みが広がる平野の風景
-coverCredit: イメージ（PJH / Unsplash）
+cover: images/workshop.jpg
+coverAlt: 小さな水槽と地図を囲んで話し合う大人たち
+coverCredit: イメージ（AI生成）
 ---
 
 ## 説明会の内容

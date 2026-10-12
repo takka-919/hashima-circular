@@ -341,3 +341,8 @@ p { margin: 0 0 1em; }
 .photo--capsule .credit { right: 50%; transform: translateX(50%); bottom: 6%; white-space: nowrap; }
 .hero > .photo .credit { right: 32px; bottom: 24px; }
 @media (max-width: 640px) { .hero > .photo .credit { top: 92px; bottom: auto; right: var(--gutter); } }
+
+.ai-note { font-size: 11px; color: var(--ink-2); margin: 0 0 12px; line-height: 1.8; }
+
+/* 明るいヒーロー写真の上でもロゴを読めるように */
+.site-header--over .logo { text-shadow: 0 0 12px rgba(0, 0, 0, .5), 0 0 2px rgba(0, 0, 0, .4); }
