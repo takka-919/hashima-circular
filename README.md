@@ -13,4 +13,4 @@ npm run build
 ## GitHub Pages で公開する（初回のみ）
 1. GitHub に `hashima-circular` リポジトリを作って push
 2. リポジトリの Settings → Pages → Source を「GitHub Actions」にする
-3. main に push するたびに自動で公開されます（`https://<ユーザー名>.github.io/hashima-circular/`）
+3. main に push するたびに自動で公開されます（https://hashima-circular.innoqua.jp/）

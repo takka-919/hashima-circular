@@ -8,6 +8,9 @@ venue: 羽島市内（確定後に掲載）
 capacity: 確定後に掲載
 fee: 確定後に掲載
 deadline: 確定後に掲載
+cover: images/boy-river.jpg
+coverAlt: 網を持って川辺を歩く子どもとサギ
+coverCredit: イメージ（Biki Z / Unsplash）
 ---
 
 ## イベントの内容

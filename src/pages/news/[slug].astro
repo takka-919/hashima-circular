@@ -21,7 +21,7 @@ const d = entry.data;
         <h1>{d.title}</h1>
         <p class="muted mb-0">{d.summary}</p>
       </header>
-      {d.cover && <Photo src={d.cover} alt={d.coverAlt ?? d.title} eager />}
+      {d.cover && <Photo src={d.cover} alt={d.coverAlt ?? d.title} credit={d.coverCredit} eager />}
       <div class="prose"><Content /></div>
       <div class="article-foot">
         <a class="btn" href={url('news/')}>活動報告の一覧へ</a>

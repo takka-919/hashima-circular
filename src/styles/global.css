@@ -335,3 +335,9 @@ p { margin: 0 0 1em; }
   .logo span { font-size: 9px; }
   .hero > .photo.photo--ph figcaption { top: 96px; bottom: auto; right: auto; left: var(--gutter); }
 }
+
+/* 写真のクレジット（フリー素材は「イメージ」と明記） */
+.photo .credit { position: absolute; right: 10px; bottom: 8px; font-size: 10px; line-height: 1.5; letter-spacing: 0.05em; color: #fff; background: rgba(43, 43, 43, .55); padding: 1px 8px; border-radius: 3px; }
+.photo--capsule .credit { right: 50%; transform: translateX(50%); bottom: 6%; white-space: nowrap; }
+.hero > .photo .credit { right: 32px; bottom: 24px; }
+@media (max-width: 640px) { .hero > .photo .credit { top: 92px; bottom: auto; right: var(--gutter); } }

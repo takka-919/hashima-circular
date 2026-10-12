@@ -7,7 +7,7 @@ const { entry } = Astro.props;
 const d = entry.data;
 ---
 <a class="card" href={url(`news/${entry.id}/`)}>
-  <Photo src={d.cover} alt={d.coverAlt ?? d.title} label="写真準備中" />
+  <Photo src={d.cover} alt={d.coverAlt ?? d.title} credit={d.coverCredit} label="写真準備中" />
   <div class="card-meta"><span class="tag">{d.category}</span><time datetime={d.date.toISOString()}>{formatDate(d.date)}</time></div>
   <h3>{d.title}</h3>
 </a>

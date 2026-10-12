@@ -12,6 +12,7 @@ const news = defineCollection({
     summary: z.string(),
     cover: z.string().optional(), // public/images/ 以下のパス 例: 'images/news/xxx.jpg'
     coverAlt: z.string().optional(),
+    coverCredit: z.string().optional(), // フリー素材なら「イメージ（撮影者 / Unsplash）」
     draft: z.boolean().default(false),
   }),
 });
@@ -33,6 +34,7 @@ const events = defineCollection({
     applyUrl: z.string().optional(),
     cover: z.string().optional(),
     coverAlt: z.string().optional(),
+    coverCredit: z.string().optional(),
     draft: z.boolean().default(false),
   }),
 });

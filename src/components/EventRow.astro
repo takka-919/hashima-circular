@@ -7,7 +7,7 @@ const { entry } = Astro.props;
 const d = entry.data;
 ---
 <a class="event-row" href={url(`events/${entry.id}/`)}>
-  <Photo src={d.cover} alt={d.coverAlt ?? d.title} label="告知画像準備中" />
+  <Photo src={d.cover} alt={d.coverAlt ?? d.title} credit={d.coverCredit} label="告知画像準備中" />
   <div>
     <div class="card-meta" style="justify-content:flex-start"><span class:list={['tag', { 'tag--line': d.status !== '募集中' }]}>{d.status}</span><span class="small">{d.audience}</span></div>
     <h3>{d.title}</h3>

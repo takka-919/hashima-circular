@@ -27,6 +27,8 @@ GitHub Pages のサブパスに対応するため、内部リンクは必ず `ur
 - ボタンは左角・右丸（`border-radius: 0 20px 20px 0`）のアウトライン
 - グラデーション、影、フェードイン演出、波線イラスト、濃色の全幅CTAは使わない
 - 写真が無い場所は `Photo` コンポーネントのプレースホルダー（面＋キャプション）のまま。絵で埋めない
+- フリー素材（Unsplash 等）を使うときは `credit="イメージ（撮影者 / Unsplash）"` を必ず付け、桑原川や羽島の実際の写真のように見せない。記事・イベントでは frontmatter の `coverCredit`
+- 写真は長辺 1600〜2000px・JPEG 品質80程度に縮小してから public/images/ に置く
 
 ## 文章のトーン
 - 子どもや保護者にも分かる、ですます調の短い文。抽象的な決め台詞（「〜を紡ぐ」等）は使わない
@@ -37,8 +39,8 @@ GitHub Pages のサブパスに対応するため、内部リンクは必ず `ur
 静的サイトなので外部フォームサービスを使う。Formspree（無料枠 月50件）などでフォームを作り、エンドポイントURLを `src/site.config.ts` の `formEndpoint` に入れると有効になる。
 
 ## 公開前チェックリスト
-- [ ] 本物の写真・ロゴに差し替え（public/images/）
+- [ ] フリー素材（「イメージ」表記のもの）を実際の写真に差し替え（public/images/）
 - [ ] パートナー紹介文を各社に確認
 - [ ] プライバシーポリシーの運営主体・制定日を確定
 - [ ] formEndpoint を設定
-- [ ] 独自ドメインを使う場合は deploy.yml の SITE_URL / BASE_PATH と public/CNAME を設定
+- [x] 独自ドメイン hashima-circular.innoqua.jp（Route 53 の CNAME → takka-919.github.io、GitHub Pages の Custom domain 設定済み）

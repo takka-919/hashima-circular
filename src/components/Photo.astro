@@ -1,15 +1,17 @@
 ---
 // 写真。src があれば画像、無ければ「写真準備中」の面だけを出す（DESIGN.md 4. Photo Placeholder）
 // src は public/ 以下のパス（例: 'images/news/survey.jpg'）
+// credit を渡すと右下に小さく表示（フリー素材は必ず「イメージ」と明記する）
 import { url } from '../lib/utils';
-interface Props { src?: string; alt?: string; label?: string; shape?: 'card' | 'capsule' | 'square' | 'free'; class?: string; eager?: boolean }
-const { src, alt = '', label = '写真準備中', shape = 'card', class: cls = '', eager = false } = Astro.props;
+interface Props { src?: string; alt?: string; label?: string; credit?: string; shape?: 'card' | 'capsule' | 'square' | 'free'; class?: string; eager?: boolean }
+const { src, alt = '', label = '写真準備中', credit, shape = 'card', class: cls = '', eager = false } = Astro.props;
 const shapeCls = shape === 'capsule' ? 'photo--capsule' : shape === 'square' ? 'photo--square' : '';
 ---
 {src ? (
-  <div class:list={['photo', shapeCls, cls]}>
+  <figure class:list={['photo', shapeCls, cls]}>
     <img src={src.startsWith('http') ? src : url(src)} alt={alt} loading={eager ? 'eager' : 'lazy'} decoding="async" />
-  </div>
+    {credit && <figcaption class="credit">{credit}</figcaption>}
+  </figure>
 ) : (
   <figure class:list={['photo', 'photo--ph', shapeCls, cls]} role="img" aria-label={`${alt || label}（写真準備中）`}>
     <figcaption>{label}</figcaption>

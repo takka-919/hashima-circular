@@ -22,7 +22,7 @@ const canApply = d.status === '募集中' && d.applyUrl;
         <h1>{d.title}</h1>
         <p class="muted mb-0">{d.summary}</p>
       </header>
-      <Photo src={d.cover} alt={d.coverAlt ?? d.title} label="告知画像準備中" eager />
+      <Photo src={d.cover} alt={d.coverAlt ?? d.title} credit={d.coverCredit} label="告知画像準備中" eager />
       <div class="prose"><Content /></div>
       <h2 class="sub-h">開催概要</h2>
       <dl class="dl">
